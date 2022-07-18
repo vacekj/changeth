@@ -5,6 +5,7 @@ import "./interfaces/ISemaphore.sol";
 import "./interfaces/ISemaphoreVerifier.sol";
 import "./base/SemaphoreGroups.sol";
 import {Ownable} from "openzeppelin-contracts/contracts/access/Ownable.sol";
+import {ECDSA} from "openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol";
 
 /// @title Semaphore
 /// @dev This contract uses the Semaphore base semaphore to provide a complete service
@@ -18,6 +19,16 @@ contract Semaphore is ISemaphore, SemaphoreGroups, Ownable {
 
     /// @dev Gets a group id and returns the group parameters.
     mapping(uint256 => Group) public groups;
+
+    using ECDSA for bytes32;
+
+    function _verify(
+        bytes32 data,
+        bytes memory signature,
+        address account
+    ) internal pure returns (bool) {
+        return data.toEthSignedMessageHash().recover(signature) == account;
+    }
 
     /// @dev Checks if the group admin is the transaction sender.
     /// @param groupId: Id of the group.
@@ -47,12 +58,19 @@ contract Semaphore is ISemaphore, SemaphoreGroups, Ownable {
     function createGroup(
         uint256 groupId,
         uint256 merkleTreeDepth,
-        address admin
-    ) external override onlySupportedMerkleTreeDepth(merkleTreeDepth) onlyOwner {
+        address admin,
+        address trustedVcIssuer
+    )
+        external
+        override
+        onlySupportedMerkleTreeDepth(merkleTreeDepth)
+        onlyOwner
+    {
         _createGroup(groupId, merkleTreeDepth);
 
         groups[groupId].admin = admin;
         groups[groupId].merkleTreeDuration = 1 hours;
+        groups[groupId].trustedVcIssuer = trustedVcIssuer;
 
         emit GroupAdminUpdated(groupId, address(0), admin);
     }
@@ -63,7 +81,12 @@ contract Semaphore is ISemaphore, SemaphoreGroups, Ownable {
         uint256 merkleTreeDepth,
         address admin,
         uint256 merkleTreeDuration
-    ) external override onlySupportedMerkleTreeDepth(merkleTreeDepth) onlyOwner {
+    )
+        external
+        override
+        onlySupportedMerkleTreeDepth(merkleTreeDepth)
+        onlyOwner
+    {
         _createGroup(groupId, merkleTreeDepth);
 
         groups[groupId].admin = admin;
@@ -73,51 +96,65 @@ contract Semaphore is ISemaphore, SemaphoreGroups, Ownable {
     }
 
     /// @dev See {ISemaphore-updateGroupAdmin}.
-    function updateGroupAdmin(uint256 groupId, address newAdmin) external override onlyGroupAdmin(groupId) {
+    function updateGroupAdmin(
+        uint256 groupId,
+        address newAdmin
+    ) external override onlyGroupAdmin(groupId) {
         groups[groupId].admin = newAdmin;
 
         emit GroupAdminUpdated(groupId, _msgSender(), newAdmin);
     }
 
     /// @dev See {ISemaphore-updateGroupMerkleTreeDuration}.
-    function updateGroupMerkleTreeDuration(uint256 groupId, uint256 newMerkleTreeDuration)
-    external
-    override
-    onlyGroupAdmin(groupId)
-    {
+    function updateGroupMerkleTreeDuration(
+        uint256 groupId,
+        uint256 newMerkleTreeDuration
+    ) external override onlyGroupAdmin(groupId) {
         uint256 oldMerkleTreeDuration = groups[groupId].merkleTreeDuration;
 
         groups[groupId].merkleTreeDuration = newMerkleTreeDuration;
 
-        emit GroupMerkleTreeDurationUpdated(groupId, oldMerkleTreeDuration, newMerkleTreeDuration);
+        emit GroupMerkleTreeDurationUpdated(
+            groupId,
+            oldMerkleTreeDuration,
+            newMerkleTreeDuration
+        );
     }
 
     /// @dev See {ISemaphore-addMember}.
-    function addMember(uint256 groupId, uint256 identityCommitment) external override onlyGroupAdmin(groupId) {
+    function addMember(
+        uint256 groupId,
+        uint256 identityCommitment,
+        bytes32 vc
+    ) external override onlyGroupAdmin(groupId) {
+        /* If the group requires it, verify the VC is valid */
+        if (groups[groupId].trustedVcIssuer != address(0)) {}
+
         _addMember(groupId, identityCommitment);
 
         uint256 merkleTreeRoot = getMerkleTreeRoot(groupId);
 
-        groups[groupId].merkleRootCreationDates[merkleTreeRoot] = block.timestamp;
+        groups[groupId].merkleRootCreationDates[merkleTreeRoot] = block
+            .timestamp;
     }
 
     /// @dev See {ISemaphore-addMembers}.
-    function addMembers(uint256 groupId, uint256[] calldata identityCommitments)
-    external
-    override
-    onlyGroupAdmin(groupId)
-    {
-        for (uint256 i = 0; i < identityCommitments.length;) {
+    function addMembers(
+        uint256 groupId,
+        uint256[] calldata identityCommitments
+    ) external override onlyGroupAdmin(groupId) {
+        for (uint256 i = 0; i < identityCommitments.length; ) {
             _addMember(groupId, identityCommitments[i]);
 
-        unchecked {
-            ++i;
-        }
+            unchecked {
+                ++i;
+            }
         }
 
         uint256 merkleTreeRoot = getMerkleTreeRoot(groupId);
 
-        groups[groupId].merkleRootCreationDates[merkleTreeRoot] = block.timestamp;
+        groups[groupId].merkleRootCreationDates[merkleTreeRoot] = block
+            .timestamp;
     }
 
     /// @dev See {ISemaphore-updateMember}.
@@ -128,11 +165,18 @@ contract Semaphore is ISemaphore, SemaphoreGroups, Ownable {
         uint256[] calldata proofSiblings,
         uint8[] calldata proofPathIndices
     ) external override onlyGroupAdmin(groupId) {
-        _updateMember(groupId, identityCommitment, newIdentityCommitment, proofSiblings, proofPathIndices);
+        _updateMember(
+            groupId,
+            identityCommitment,
+            newIdentityCommitment,
+            proofSiblings,
+            proofPathIndices
+        );
 
         uint256 merkleTreeRoot = getMerkleTreeRoot(groupId);
 
-        groups[groupId].merkleRootCreationDates[merkleTreeRoot] = block.timestamp;
+        groups[groupId].merkleRootCreationDates[merkleTreeRoot] = block
+            .timestamp;
     }
 
     /// @dev See {ISemaphore-removeMember}.
@@ -142,11 +186,17 @@ contract Semaphore is ISemaphore, SemaphoreGroups, Ownable {
         uint256[] calldata proofSiblings,
         uint8[] calldata proofPathIndices
     ) external override onlyGroupAdmin(groupId) {
-        _removeMember(groupId, identityCommitment, proofSiblings, proofPathIndices);
+        _removeMember(
+            groupId,
+            identityCommitment,
+            proofSiblings,
+            proofPathIndices
+        );
 
         uint256 merkleTreeRoot = getMerkleTreeRoot(groupId);
 
-        groups[groupId].merkleRootCreationDates[merkleTreeRoot] = block.timestamp;
+        groups[groupId].merkleRootCreationDates[merkleTreeRoot] = block
+            .timestamp;
     }
 
     /// @dev See {ISemaphore-verifyProof}.
@@ -169,10 +219,23 @@ contract Semaphore is ISemaphore, SemaphoreGroups, Ownable {
             revert Semaphore__YouAreUsingTheSameNillifierTwice();
         }
 
-        verifier.verifyProof(currentMerkleTreeRoot, nullifierHash, signal, externalNullifier, proof, merkleTreeDepth);
+        verifier.verifyProof(
+            currentMerkleTreeRoot,
+            nullifierHash,
+            signal,
+            externalNullifier,
+            proof,
+            merkleTreeDepth
+        );
 
         groups[groupId].nullifierHashes[nullifierHash] = true;
 
-        emit ProofVerified(groupId, currentMerkleTreeRoot, nullifierHash, externalNullifier, signal);
+        emit ProofVerified(
+            groupId,
+            currentMerkleTreeRoot,
+            nullifierHash,
+            externalNullifier,
+            signal
+        );
     }
 }

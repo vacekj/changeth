@@ -25,6 +25,9 @@ contract PetitionManager {
         semaphore = ISemaphore(semaphoreAddress);
     }
 
+    /// Create a petition
+    /// @param groupIds The groupIds you want to allow to sign this petition
+    /// @param metadata IPFS Metadata
     function createPetition(
         uint256[] calldata groupIds,
         string memory metadata

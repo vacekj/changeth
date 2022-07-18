@@ -12,8 +12,6 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/packages/contracts/lib/openzeppelin-contracts" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/packages/contracts/lib/openzeppelin-contracts/lib/forge-std" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/packages/contracts/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/packages/contracts/lib/semaphore" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/packages/contracts/lib/zk-kit" vcs="Git" />
   </component>
 </project>

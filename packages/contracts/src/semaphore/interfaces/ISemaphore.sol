@@ -15,13 +15,18 @@ interface ISemaphore {
         uint256 merkleTreeDuration;
         mapping(uint256 => uint256) merkleRootCreationDates;
         mapping(uint256 => bool) nullifierHashes;
+        address trustedVcIssuer;
     }
 
     /// @dev Emitted when an admin is assigned to a group.
     /// @param groupId: Id of the group.
     /// @param oldAdmin: Old admin of the group.
     /// @param newAdmin: New admin of the group.
-    event GroupAdminUpdated(uint256 indexed groupId, address indexed oldAdmin, address indexed newAdmin);
+    event GroupAdminUpdated(
+        uint256 indexed groupId,
+        address indexed oldAdmin,
+        address indexed newAdmin
+    );
 
     /// @dev Emitted when the Merkle tree duration of a group is updated.
     /// @param groupId: Id of the group.
@@ -69,7 +74,8 @@ interface ISemaphore {
     function createGroup(
         uint256 groupId,
         uint256 depth,
-        address admin
+        address admin,
+        address trustedVcIssuer
     ) external;
 
     /// @dev Creates a new group. Only the admin will be able to add or remove members.
@@ -92,17 +98,27 @@ interface ISemaphore {
     /// @dev Updates the group Merkle tree duration.
     /// @param groupId: Id of the group.
     /// @param newMerkleTreeDuration: New Merkle tree duration.
-    function updateGroupMerkleTreeDuration(uint256 groupId, uint256 newMerkleTreeDuration) external;
+    function updateGroupMerkleTreeDuration(
+        uint256 groupId,
+        uint256 newMerkleTreeDuration
+    ) external;
 
     /// @dev Adds a new member to an existing group.
     /// @param groupId: Id of the group.
     /// @param identityCommitment: New identity commitment.
-    function addMember(uint256 groupId, uint256 identityCommitment) external;
+    function addMember(
+        uint256 groupId,
+        uint256 identityCommitment,
+        bytes32 vc
+    ) external;
 
     /// @dev Adds new members to an existing group.
     /// @param groupId: Id of the group.
     /// @param identityCommitments: New identity commitments.
-    function addMembers(uint256 groupId, uint256[] calldata identityCommitments) external;
+    function addMembers(
+        uint256 groupId,
+        uint256[] calldata identityCommitments
+    ) external;
 
     /// @dev Updates an identity commitment of an existing group. A proof of membership is
     /// needed to check if the node to be updated is part of the tree.
