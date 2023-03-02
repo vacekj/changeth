@@ -2,7 +2,7 @@
 pragma solidity >=0.8.4;
 
 import {Script} from "forge-std/Script.sol";
-import {GroupManager} from "../src/Foo.sol";
+import {GroupManager} from "../src/GroupManager.sol";
 import {Semaphore} from "semaphore/Semaphore.sol";
 import {Pairing} from "semaphore/base/Pairing.sol";
 import {SemaphoreVerifier} from "semaphore/base/SemaphoreVerifier.sol";
