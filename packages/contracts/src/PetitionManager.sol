@@ -33,6 +33,10 @@ contract PetitionManager {
         emit PetitionCreated(petitionCount);
     }
 
+    function getGroupIdsForPetition(uint256 petitionId) public view returns (uint256[] memory) {
+        return petitions[petitionId].groupIds;
+    }
+
     function joinGroup(uint256 identityCommitment, uint256 groupId) external {
         /* TODO: provide a VC, verify that it's correct and corresponds to the group and add the user to the group*/
         semaphore.addMember(groupId, identityCommitment);
