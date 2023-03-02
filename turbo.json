@@ -26,8 +26,6 @@
     ".env",
     ".env.local",
     "tsconfig.json",
-    ".eslintrc.json",
-    ".prettierrc.js",
     ".solhint.json"
   ],
   "globalEnv": [
