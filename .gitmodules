@@ -1,6 +1,3 @@
-[submodule "packages/contracts/lib/semaphore"]
-	path = packages/contracts/lib/semaphore
-	url = https://github.com/semaphore-protocol/semaphore
 [submodule "lib/semaphore"]
 	branch = v3.1.0
 [submodule "packages/contracts/lib/openzeppelin-contracts"]

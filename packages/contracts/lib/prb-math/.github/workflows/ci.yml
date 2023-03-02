@@ -27,7 +27,7 @@ jobs:
       - name: "Install the Node.js dependencies"
         run: "yarn install --immutable"
 
-      - name: "Lint the contracts"
+      - name: "Lint the semaphore"
         run: "yarn lint"
 
       - name: "Add lint summary"

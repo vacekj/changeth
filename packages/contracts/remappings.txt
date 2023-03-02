@@ -1,6 +1,5 @@
 @prb/test/=lib/prb-test/src/
 forge-std/=lib/forge-std/src/
 src/=src/
-semaphore/=lib/semaphore/packages/contracts/contracts/
 @openzeppelin/=lib/openzeppelin-contracts/
 @zk-kit/incremental-merkle-tree.sol/=lib/zk-kit/packages/incremental-merkle-tree.sol/contracts/

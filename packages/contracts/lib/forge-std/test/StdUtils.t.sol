@@ -235,7 +235,7 @@ contract StdUtilsForkTest is Test {
     address internal USDC_HOLDER_1 = 0x3e67F4721E6d1c41a015f645eFa37BEd854fcf52;
 
     function setUp() public {
-        // All tests of the `getTokenBalances` method are fork tests using live contracts.
+        // All tests of the `getTokenBalances` method are fork tests using live semaphore.
         vm.createSelectFork({urlOrAlias: "mainnet", blockNumber: 16_428_900});
     }
 

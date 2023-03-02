@@ -34,7 +34,7 @@ jobs:
       - name: "Install the Node.js dependencies"
         run: "yarn install --immutable"
 
-      - name: "Lint the contracts"
+      - name: "Lint the semaphore"
         run: "yarn lint"
 
       - name: "Add lint summary"
@@ -48,7 +48,7 @@ jobs:
       - name: "Run the tests"
         run: "forge test"
 
-      - name: "Build the contracts"
+      - name: "Build the semaphore"
         run: |
           forge --version
           forge build --sizes

@@ -2,15 +2,15 @@
 pragma solidity >=0.8.4;
 
 import {Script} from "forge-std/Script.sol";
-import {GroupManager} from "../src/GroupManager.sol";
-import {Semaphore} from "semaphore/Semaphore.sol";
-import {Pairing} from "semaphore/base/Pairing.sol";
-import {SemaphoreVerifier} from "semaphore/base/SemaphoreVerifier.sol";
+import {PetitionManager} from "../src/PetitionManager.sol";
+import {Semaphore} from "../src/semaphore/Semaphore.sol";
+import {Pairing} from "../src/semaphore/base/Pairing.sol";
+import {SemaphoreVerifier} from "../src/semaphore/base/SemaphoreVerifier.sol";
 
 /// @dev See the Solidity Scripting tutorial: https://book.getfoundry.sh/tutorials/solidity-scripting
 contract DeployFoo is Script {
     address internal deployer;
-    GroupManager internal groupManager;
+    PetitionManager internal groupManager;
     Semaphore internal semaphore;
     SemaphoreVerifier internal semaphoreVerifier;
 
@@ -22,12 +22,12 @@ contract DeployFoo is Script {
     function run() public {
         vm.startBroadcast(deployer);
 
-        /*Deploy supporting contracts*/
+        /*Deploy supporting semaphore*/
         semaphoreVerifier = new SemaphoreVerifier();
 
         semaphore = new Semaphore(semaphoreVerifier);
 
-        groupManager = new GroupManager(address(semaphore), 1);
+        groupManager = new PetitionManager(address(semaphore));
         vm.stopBroadcast();
     }
 }

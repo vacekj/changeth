@@ -26,7 +26,7 @@ pnpm install
 # Copy & fill environments
 # NOTE: Documentation of environment variables can be found in the according `.example` files
 cp packages/frontend/.env.local.example packages/frontend/.env.local
-cp packages/contracts/.env.example packages/contracts/.env
+cp packages/semaphore/.env.example packages/semaphore/.env
 ```
 
 ## Development

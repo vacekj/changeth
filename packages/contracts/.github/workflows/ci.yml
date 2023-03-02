@@ -35,7 +35,7 @@ jobs:
       - name: "Install the Node.js dependencies"
         run: "yarn install --immutable"
 
-      - name: "Lint the contracts"
+      - name: "Lint the semaphore"
         run: "yarn lint"
 
       - name: "Add lint summary"
@@ -54,7 +54,7 @@ jobs:
       - name: "Install Foundry"
         uses: "foundry-rs/foundry-toolchain@v1"
 
-      - name: "Build the contracts and print their size"
+      - name: "Build the semaphore and print their size"
         run: "forge build --sizes"
 
       - name: "Add build summary"
