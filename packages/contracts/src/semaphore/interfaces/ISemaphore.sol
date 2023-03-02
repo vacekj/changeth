@@ -50,14 +50,12 @@ interface ISemaphore {
     /// @dev Saves the nullifier hash to avoid double signaling and emits an event
     /// if the zero-knowledge proof is valid.
     /// @param groupId: Id of the group.
-    /// @param merkleTreeRoot: Root of the Merkle tree.
     /// @param signal: Semaphore signal.
     /// @param nullifierHash: Nullifier hash.
     /// @param externalNullifier: External nullifier.
     /// @param proof: Zero-knowledge proof.
     function verifyProof(
         uint256 groupId,
-        uint256 merkleTreeRoot,
         uint256 signal,
         uint256 nullifierHash,
         uint256 externalNullifier,
