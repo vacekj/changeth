@@ -15,7 +15,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@rainbow-me/rainbowkit": "^0.11.0",
-    "ethers": "^6.0.8",
+    "ethers": "^5.7.2",
     "framer-motion": "^10.0.1",
     "next": "^13.2.1",
     "next-transpile-modules": "^10.0.0",
