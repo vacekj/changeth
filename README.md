@@ -25,8 +25,10 @@ can also be used as a private Kickstarter - fundraising program
 1. Implement creation of petitions, storage on IPFS and management of petitions
 2. Enable signatures without sybil resistance
 3. Integrate World ID for simple proof-of-humanity verification
-4. Integrate zkBob for private donations
-5. Implement Gitcoin Passport for soft sybil resistance
+4. Implement Gitcoin Passport for soft sybil resistance
+5. Integrate zkBob for private donations
+
+Petition operators will be able to choose which sybil resistance mechanisms they want to gate their petition with, and whether they want to be able to accept donations.
 
 ---
 
