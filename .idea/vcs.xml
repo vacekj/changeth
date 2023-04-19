@@ -8,10 +8,4 @@
       <inspection_tool class="SubjectBodySeparation" enabled="true" level="WARNING" enabled_by_default="true" />
     </profile>
   </component>
-  <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/packages/contracts/lib/openzeppelin-contracts" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/packages/contracts/lib/openzeppelin-contracts/lib/forge-std" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/packages/contracts/lib/zk-kit" vcs="Git" />
-  </component>
 </project>
