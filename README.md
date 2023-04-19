@@ -1,4 +1,24 @@
-# change – Privacy-preserving Sybil-resistant petitions and fundraising
+# changeth – Privacy-preserving Sybil-resistant petitions and fundraising
+
+Imagine Change.org but all your signatures are private, you can donate money to the cause without revealing your address and all the signatories are real humans (not bots).
+
+Sybil resistance:
+- World ID
+- Gitcoin Passport
+- any other Sybil-resistance mechanism
+
+Private - don’t reveal people who have signed the petition or contributed financially
+- BUT optionally reveal when the cause owner has withdrawn the funds
+- BUT reveal your identity selectively for potential rewards or as a public show of support
+
+Private donations using https://www.zkbob.com/
+
+can also be used as a private Kickstarter - fundraising program
+
+# Contracts
+
+- permissionless contract that verifies the VC based on trusted issuers and adds the identity to the group. 
+- multisig-owned governance of trusted issuers
 
 ---
 
