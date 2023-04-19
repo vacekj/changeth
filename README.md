@@ -20,6 +20,14 @@ can also be used as a private Kickstarter - fundraising program
 - permissionless contract that verifies the VC based on trusted issuers and adds the identity to the group. 
 - multisig-owned governance of trusted issuers
 
+
+# Roadmap
+1. Implement creation of petitions, storage on IPFS and management of petitions
+2. Enable signatures without sybil resistance
+3. Integrate World ID for simple proof-of-humanity verification
+4. Integrate zkBob for private donations
+5. Implement Gitcoin Passport for soft sybil resistance
+
 ---
 
 ## The Stack
