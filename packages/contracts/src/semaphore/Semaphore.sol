@@ -124,8 +124,7 @@ contract Semaphore is ISemaphore, SemaphoreGroups, Ownable {
     /// @dev See {ISemaphore-addMember}.
     function addMember(
         uint256 groupId,
-        uint256 identityCommitment,
-        bytes32 vc
+        uint256 identityCommitment
     ) external override onlyGroupAdmin(groupId) {
         /* If the group requires it, verify the VC is valid */
         if (groups[groupId].trustedVcIssuer != address(0)) {}

@@ -108,8 +108,7 @@ interface ISemaphore {
     /// @param identityCommitment: New identity commitment.
     function addMember(
         uint256 groupId,
-        uint256 identityCommitment,
-        bytes32 vc
+        uint256 identityCommitment
     ) external;
 
     /// @dev Adds new members to an existing group.
