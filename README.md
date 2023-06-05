@@ -37,26 +37,19 @@ Petition operators will be able to choose which sybil resistance mechanisms they
 - Package-Manager: `pnpm`
 - Monorepo Tooling: `turborepo`
 - Smart Contract Development: `foundry`
-  - Typescript-Types: `typechain`
 - Frontend: `next`
   - Contract Interactions: `wagmi`, `rainbowkit`
-  - Styling: `chakra`, `tailwindcss`, `twin.macro`, `emotion`
-- Misc:
-  - Linting & Formatting: `eslint`, `prettier`, `husky`, `lint-staged`
+  - Styling: `chakra`
 
 ## Getting Started
 
 ```bash
-# Install pnpm
-npm i -g pnpm
-
-# Install dependencies
 pnpm install
 
 # Copy & fill environments
-# NOTE: Documentation of environment variables can be found in the according `.example` files
+# NOTE: Documentation of environment variables can be found in the relevant `.example` files
 cp packages/frontend/.env.local.example packages/frontend/.env.local
-cp packages/semaphore/.env.example packages/semaphore/.env
+cp packages/contracts/.env.example packages/semaphore/.env
 ```
 
 ## Development
