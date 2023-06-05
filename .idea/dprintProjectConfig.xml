@@ -2,5 +2,6 @@
 <project version="4">
   <component name="DprintProjectConfiguration">
     <option name="configLocation" value="$PROJECT_DIR$/packages/frontend/dprint.json" />
+    <option name="enabled" value="true" />
   </component>
 </project>

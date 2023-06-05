@@ -2,3 +2,5 @@
 out/
 build
 next-env.d.ts
+.turbo
+node_modules
