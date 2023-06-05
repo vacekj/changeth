@@ -7,6 +7,9 @@
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/packages/contracts/lib" />
       <excludeFolder url="file://$MODULE_DIR$/packages/frontend/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/contracts/broadcast/Deploy.sol" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/contracts/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/contracts/out" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
