@@ -1,5 +1,4 @@
 import { useSignTypedData } from "wagmi";
-import { BigNumber, utils } from "ethers";
 
 const domain = {
 	name: "Changeth VC",
@@ -17,8 +16,8 @@ const types = {
 } as const;
 
 type VC = {
-	idCommitment: BigNumber;
-	groupId: BigNumber;
+	idCommitment: bigint;
+	groupId: bigint;
 };
 
 export function useVC() {
