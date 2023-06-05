@@ -5,7 +5,7 @@ import {
 	usePetitionManagerPetitionCreatedEvent,
 	usePreparePetitionManagerCreatePetition,
 } from "@/shared/generated";
-import { useAccount, useContractWrite } from "wagmi";
+import { useAccount, useContractWrite, useWalletClient} from "wagmi";
 import { Button, Container, Input } from "@chakra-ui/react";
 import { useVC } from "@/shared/vc";
 import { useState } from "react";
@@ -16,6 +16,8 @@ import { useToast } from "@chakra-ui/react";
 const petitionManagerAddress = "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82";
 
 const HomePage: NextPage = () => {
+	const {data: client} = useWalletClient();
+
 	const toast = useToast();
 
 	const { address, isConnected } = useAccount();
@@ -48,6 +50,7 @@ const HomePage: NextPage = () => {
 				<div>
 					<ol>
 						<li>
+							{client?.name}
 							Generate an identity:{" "}
 							<Input
 								onChange={(e) => setPassword(e.target.value)}
